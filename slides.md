@@ -23,7 +23,7 @@ theme: default
 
 **Desenvolva Produtos de Forma Profissional**
 
-<!-- footer: ![h:50](./images/lhc-pretoebranco.png) Link para esta apresentação: [https://bit.ly/nuttx-workshop](https://bit.ly/nuttx-workshop) -->
+<!-- footer: ![h:50](./images/lhc-pretoebranco.png) Link para esta apresentação: [https://tmedicci.github.io/workshop-nuttx-lhc/](https://tmedicci.github.io/workshop-nuttx-lhc/) -->
 
 <style>
 footer {
