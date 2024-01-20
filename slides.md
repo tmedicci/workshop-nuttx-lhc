@@ -9,21 +9,14 @@ theme: default
 
 ---
 
+<!-- Global style -->
 <style>
-  :root {
-    --color-fg-default: #000;
-    --color-canvas-default: #fff;
-    /* ... */
-  }
+h1 {
+  color: #2b278b;
+}
 </style>
 
-**Laboratório Hacker de Campinas (LHC), apresenta:**
-
-# Explorando o NuttX com o ESP32
-
-**Desenvolva Produtos de Forma Profissional**
-
-<!-- footer: ![h:50](./images/lhc-pretoebranco.png) Link para esta apresentação: [https://tmedicci.github.io/workshop-nuttx-lhc/](https://tmedicci.github.io/workshop-nuttx-lhc/) -->
+<!-- footer: ![h:25](./images/lhc.png) Link para esta apresentação: [https://tmedicci.github.io/workshop-nuttx-lhc/](https://tmedicci.github.io/workshop-nuttx-lhc/) -->
 
 <style>
 footer {
@@ -31,6 +24,14 @@ footer {
     align-items:center;
 }
 </style>
+
+![bg](https://fakeimg.pl/300x600/ffffff/fff/)
+![bg](https://fakeimg.pl/800x600/ffffff/fff/)
+![bg w:300](./images/nuttx.svg)
+
+# Explorando o NuttX com o ESP32
+
+**Desenvolva Produtos de Forma Profissional**
 
 ---
 
@@ -42,7 +43,9 @@ footer {
 
 ---
 
-**Laboratório Hacker de Campinas (LHC), apresenta:**
+![bg](https://fakeimg.pl/300x600/ffffff/fff/)
+![bg](https://fakeimg.pl/800x600/ffffff/fff/)
+![bg w:300](./images/nuttx.svg)
 
 # Explorando o NuttX com o ESP32
 
