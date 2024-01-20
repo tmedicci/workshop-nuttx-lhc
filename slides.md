@@ -610,6 +610,10 @@ Este workshop é uma introdução ao NuttX com o ESP32. Muito conteúdo ficou de
 ![w:25 left](./images/github-mark.png) - [https://github.com/tmedicci](https://github.com/tmedicci)
 ![w:25 left](./images/linkedin-mark.png) - [https://www.linkedin.com/in/tmedicci/](https://www.linkedin.com/in/tmedicci/)
 
+#### Ajude o LHC!
+
+Faça um pix de qualquer valor para batman@lhc.net.br :dollar:
+
 ---
 
 ## Referências Gerais
