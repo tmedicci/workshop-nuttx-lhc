@@ -600,6 +600,11 @@ Received publish('datetime'): The time is 2024-01-20 12:22:37
 
 Este workshop é uma introdução ao NuttX com o ESP32. Muito conteúdo ficou de fora, eu sei, mas espero que tenham gostado!
 
+### Obrigado!
+
+![w:25 left](./images/github-mark.png) - [https://github.com/tmedicci](https://github.com/tmedicci)
+![w:25 left](./images/linkedin-mark.png) - [https://www.linkedin.com/in/tmedicci/](https://www.linkedin.com/in/tmedicci/)
+
 ---
 
 ## Referências Gerais
