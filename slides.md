@@ -358,22 +358,92 @@ Uma série de artigos em português no *embarcados.com.br*:
 
 ---
 
+Ok, são inúmeros os tutoriais de como configurar o ambiente de build, mas não teremos tempo de fazer estas etapas hoje. Para agilizar, disponibilizamos uma máquina virtual (VM) que pode ser importada pelo VirtualBox no Linux ou no Windows.
+
+*Mas VMs são pesadas, quero fazer tudo na mão!* :nerd_face:
+
+OK, temos uma imagem docker para você também [aqui](#docker-nuttx).
+
+---
+
 ### Máquina Virtual <a id="maquina-virtual"></a>
 
 Para facilitar os experimentps, disponibilizei uma máquina virtual já configurada com o ambiente de desenvolvimento do NuttX configurado e testado!
 
 #### Instruções:
 1. Baixe e instale o [VirtualBox](https://www.virtualbox.org/wiki/Downloads);
-2. Baixe o arquivo disponibilizado **.vdi*: https://bit.ly/nuttx-vm
-3. Siga as instruções disponibilizadas na sessão [*"How to Import a VM Into VirtualBox"*](https://www.makeuseof.com/how-to-export-virtualbox-vm-image-to-another-computer/#how-to-import-a-vm-into-virtualbox)
+2. Baixe o arquivo disponibilizado **.ova*: [https://bit.ly/nuttx-vm-ova](https://bit.ly/nuttx-vm-ova)
+3. Siga as instruções disponibilizadas na sessão [*"Importing an OVA"*](https://www.maketecheasier.com/import-export-ova-files-in-virtualbox/#importing-an-ova)
 
 ---
 
-*Mas VMs são pesadas, quero fazer tudo na mão!* :nerd_face:
+### Máquina Virtual
+
+#### Autorizando o acesso aos dispositivos USB (no caso, a placa com o ESP32)
+
+No linux, você precisa ter certeza que seu usário pertence ao grupo `vboxusers`:
+
+```
+$ sudo groupadd vboxusers
+$ sudo gpasswd -a $USER vboxusers
+```
+
+Reinicie o computador para a mudança ter efeito!
+
+---
+
+### Máquina Virtual
+
+#### Configurando a porta USB da placa do ESP32 na VM:
+
+1. Em configurações (*Settings*), navegue até a aba `USB`;
+2. Adicione o dispositivo que contenha algo como `USB to UART` clicando no ícone ![w:30 right](./images/vm_usb_add.png);
+3. Clique em `OK` para confirmar e sair da tela;
+
+![bg w:600 right](./images/vm_usb.png)
+
+---
+
+### Máquina Virtual
+
+#### Iniciando a VM:
+
+1. Clique em `Start` no VirtualBox para iniciar a VM;
+2. Na área de trabalho, o arquivo `Dados.txt` contém dados da VM;
+
+![bg w:600 right](./images/vm_desktop.png)
+
+---
+
+### Máquina Virtual
+
+#### Iniciando a VM:
+
+3. O ambiente do NuttX já foi baixado e está em `/home/nuttx/Documentos/nuttxspace`. Abra o terminal e navegue até este local!
+
+![bg w:600 right](./images/vm_terminal.png)
+
+---
+
+### Ambiente de Desenvolvimento via Docker <a id="docker-nuttx"></a>
+
+ A imagem docker que o NuttX utiliza em seu CI pode ser usada sem problemas :wink:
+
+Antes de executar o docker, porém, precisamos clonar o repositório do NuttX no computador host:
+
+```
+mkdir nuttxspace
+cd nuttxspace
+git clone https://github.com/apache/nuttx.git nuttx
+git clone https://github.com/apache/nuttx-apps apps
+
+```
+
+---
 
 ### Ambiente de Desenvolvimento via Docker
 
-Ok, são inúmeros os tutoriais de como configurar o ambiente de build, mas não teremos tempo de fazer estas etapas hoje. Uma dica: a imagem docker que o NuttX utiliza em seu CI pode ser usada sem problemas :wink:
+Na pasta `nuttxspace`, execute:
 
 ```
 docker run -it --rm \
@@ -385,6 +455,144 @@ docker run -it --rm \
         --device=/dev/ttyUSB0 \
         ghcr.io/apache/nuttx/apache-nuttx-ci-linux
 ```
+
+---
+
+#### Exemplo de Aplicação: Cliente MQTT
+
+**Objetivo da parte prática:** implementar um cliente MQTT! Ideias?
+
+---
+
+#### Exemplo de Aplicação: Cliente MQTT (MQTT-C)
+
+##### Não reinventar a roda!
+
+![w:25 left](./images/github-mark.png) [https://github.com/LiamBindle/MQTT-C](https://github.com/LiamBindle/MQTT-C)
+
+---
+
+#### Exemplo de Aplicação: Cliente MQTT (MQTT-C)
+
+E, na documentação do NuttX:
+
+![w:25 left](./images/nuttx.svg) https://nuttx.apache.org/docs/latest/applications/examples/mqttc/index.html:
+
+<iframe src="https://nuttx.apache.org/docs/latest/applications/examples/mqttc/index.html" height="80%" width="100%" frameBorder="1"></iframe>
+
+---
+
+#### Exemplo de Aplicação: Cliente MQTT (MQTT-C)
+
+E, agora que a VM (ou o Docker) já estão prontinhos:
+
+##### Configurando o NuttX para compilar o MQTT-C :gear:
+
+Partindo de uma configuração já existente, vamos selecionar o MQTT-C:
+
+1. Na pasta `nuttx`, limpe o ambiente: `make distclean`;
+2. Carregue a configuração do ESP32: `/tools/configure.sh -l esp32-devkitc:wifi`;
+3. Abra o `make menuconfig` para selecionarmos a aplicação do MQTT-C;
+
+---
+
+#### Exemplo de Aplicação: Cliente MQTT (MQTT-C)
+
+##### Configurando o NuttX para compilar o MQTT-C :gear:
+
+4. No `menuconfig`, use a tecla `/` para pesquisar por `mqtt`;
+5. Navegue com as teclas de direção até a opção `NETUTILS_MQTTC` e selecione com `ENTER`
+
+![bg w:600 right](./images/menuconfig_2.png)
+
+---
+
+#### Exemplo de Aplicação: Cliente MQTT (MQTT-C)
+
+##### Configurando o NuttX para compilar o MQTT-C :gear:
+
+6. Com a tecla `y`, marque as opções `Enable MQTT-C` e `Enable MQTT-C example`;
+
+![bg w:600 right](./images/menuconfig_3.png)
+
+---
+
+#### Exemplo de Aplicação: Cliente MQTT (MQTT-C)
+
+##### Configurando o NuttX para compilar o MQTT-C :gear:
+
+7. Pressione a tecla `Esc` múltiplas vezes (para voltar às telas anteriores) até aparecer a opção para salvar. Clique em `y` para salvar e sair;
+
+![bg w:600 right](./images/menuconfig_4.png)
+
+---
+
+#### Exemplo de Aplicação: Cliente MQTT (MQTT-C)
+
+##### Compilando o NuttX e gravando no ESP32 :hammer:
+
+1. Primeiro, compile o bootloader do ESP32 `make bootloader`;
+2. Depois, compile e grave o NuttX com `make -j flash ESPTOOL_BINDIR=./ ESPTOOL_PORT=/dev/ttyUSB0`. Tome um café :coffee:
+
+![bg w:600 right](./images/build_completo.png)
+
+---
+
+#### Exemplo de Aplicação: Cliente MQTT (MQTT-C)
+
+##### Executando o terminal do NuttX no ESP32 :computer:
+
+1. Agora, podemos abrir um aplicativo como o `minicom` para ter acesso ao terminal através da porta serial `/dev/ttyUSB0` (115kps, 8N1):
+    1. Para os usuários da VM, o `minicom` já está instalado e configurado. Basta executar `minicom`.
+    2. Para quem estiver usando o ambiente docker, o minicom pode ser instalado  direto no contêiner com `apt update && apt install minicom`. Não se esqueça de configurá-lo para 1) desligar o controle de fluxo por HW e 2) configurar o baud rate:
+
+---
+
+#### Exemplo de Aplicação: Cliente MQTT (MQTT-C)
+
+##### Executando o terminal do NuttX no ESP32 :computer:
+
+2. Bem vindo ao terminal do NuttX (NSH): digite `help` para ver as aplicações e comandos disponíveis!
+
+![bg w:600 right](./images/minicom_1.png)
+
+---
+
+#### Exemplo de Aplicação: Cliente MQTT (MQTT-C)
+
+##### Conectando-se à rede Wi-Fi :satellite:
+
+1. Use a aplicação `wapi`: `wapi psk wlan0 <senha> 3` e `wapi essid wlan0 <rede> 1`;
+2. Atualize o IP através do DHCP server: `renew wlan0`;
+3. Cheque a conexão com `ifconfig`;
+
+![bg w:600 right](./images/minicom_2.png)
+
+---
+
+#### Exemplo de Aplicação: Cliente MQTT (MQTT-C)
+
+##### Recebendo mensagens via MQTT :email:
+
+1. "Pingue" o endereço do broker: `ping -c 2 <ip_do_broker>`
+    1. Qual o endereço do Broker?
+2. Execute a aplicação de exemplo do MQTT-C que subscreve no tópico *datetime*: `mqttc_posix_sub 192.168.107.170 &`
+    1. Sim, estamos executando a aplicação em segundo plano. O NuttX permite isso!
+    2. Sim, em segundo plano, continuamos tendo acesso ao terminal do NuttX;
+
+---
+
+#### Exemplo de Aplicação: Cliente MQTT (MQTT-C)
+
+##### Recebendo mensagens via MQTT :email:
+
+3. Verifique se, após o envio da mensagem para o tópico *datetime*, ela foi recebida pelo NuttX:
+
+```
+Received publish('datetime'): The time is 2024-01-20 12:22:37
+```
+
+![bg w:600 right](./images/minicom_3.png)
 
 ---
 
