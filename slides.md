@@ -148,7 +148,7 @@ int main() {
 
 ---
 
-![bg top:50% height: 70%](./images/resposta_exemplo_tcp_server.png)
+![bg top:50% height: 70% right](./images/resposta_exemplo_tcp_server.png)
 
 ```c
 #include <stdio.h>
@@ -246,7 +246,7 @@ int main() {
 
 ### POSIX?
 
-De novo, do wikipedia :memo::
+De novo, da wikipedia :memo::
 
 > POSIX (um acrônimo para: Portable Operating System Interface, que pode ser traduzido como Interface Portável entre Sistemas Operativos) é uma família de normas definidas pelo IEEE para a manutenção de compatibilidade entre sistemas operacionais e designada formalmente por IEEE 1003. POSIX define a interface de programação de aplicações (API), juntamente com shells de linha e comando e interfaces utilitárias, para compatibilidade de software com variantes de Unix e outros sistemas operacionais.
 
@@ -256,7 +256,7 @@ https://pt.wikipedia.org/wiki/POSIX, acesso em 13 de janeiro de 2024.
 
 ### POSIX! :raised_hands:
 
-De novo, do wikipedia:
+De novo, da wikipedia:
 
 > **Tem como objetivo garantir a portabilidade do código-fonte de um programa a partir de um sistema operacional que atenda às normas POSIX para outro sistema POSIX, desta forma as regras atuam como uma interface entre sistemas operacionais distintos.**
 
@@ -302,7 +302,7 @@ Utilizar o ESP32 como uma placa de áudio externa que recebe pacotes via rede Wi
 
 Existe (desde 1996) um protocolo de rede chamado *RTP* (Real-Time Protocol) que é capaz de enviar e receber pacotes de áudio pela rede.
 
-[***RTP Tools***](https://github.com/irtlab/rtptools)
+![w:25 left](./images/github-mark.png) [***RTP Tools***](https://github.com/irtlab/rtptools)
 
 *RTP Tools is a set of small applications that can be used for processing RTP data.*
 
@@ -436,7 +436,6 @@ mkdir nuttxspace
 cd nuttxspace
 git clone https://github.com/apache/nuttx.git nuttx
 git clone https://github.com/apache/nuttx-apps apps
-
 ```
 
 ---
@@ -542,7 +541,7 @@ Partindo de uma configuração já existente, vamos selecionar o MQTT-C:
 
 ##### Executando o terminal do NuttX no ESP32 :computer:
 
-1. Agora, podemos abrir um aplicativo como o `minicom` para ter acesso ao terminal através da porta serial `/dev/ttyUSB0` (115kps, 8N1):
+1. Agora, podemos abrir um aplicativo como o `minicom` para ter acesso ao terminal através da porta serial `/dev/ttyUSB0` (*115200bps, 8N1*):
     1. Para os usuários da VM, o `minicom` já está instalado e configurado. Basta executar `minicom`.
     2. Para quem estiver usando o ambiente docker, o minicom pode ser instalado  direto no contêiner com `apt update && apt install minicom`. Não se esqueça de configurá-lo para 1) desligar o controle de fluxo por HW e 2) configurar o baud rate:
 
